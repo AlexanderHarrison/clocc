@@ -4,14 +4,17 @@ A simple lines of code counter in C.
 
 Reason why you should not use clocc:
 - It is linux only.
+- It only supports C, C++, Rust, and Python.
+- It doesn't support the latest and hottest counting features.
 - It has bad error messages.
 - It might crash.
-- It only supports C, C++, Rust, and Python.
+- It might not be 100% accurate.
+- It isn't blazingly fast.
 
-Reason why you might want to use clocc:
-- You want to modify a loc counter for your own purposes.
-- You want something simple to build.
-- You care about startup time and small binaries.
+Reason why you could use clocc:
+- It is simple to build and modify.
+- It has quick startup time and a small binary.
+- It has good-enough performance.
 
 ```
 clocc [directory]
