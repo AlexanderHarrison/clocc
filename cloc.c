@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <dirent.h>
+#include <libgen.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -293,7 +294,18 @@ int main(int argc, char *argv[]) {
         strcpy(dir, argv[1]);
     }
     
-    count_dir(dir);
+    // if passed just a file, only count that
+    struct stat st;
+    if (stat(dir, &st) == 0 && S_ISREG(st.st_mode)) {
+        char *parent_dir = strdup(dir);
+        parent_dir = dirname(parent_dir);
+        int dirfd = open(parent_dir, O_RDONLY);
+
+        char *base = basename(dir);
+        count_file(dirfd, base);
+    } else {
+        count_dir(dir);
+    }
     
     printf("Lang\t| Total\t| Code\t| Cmt\t| Blank\n");
     printf("-------- ------- ------- ------- -------\n");
